@@ -20,6 +20,7 @@ chown -R "$app:www-data" "$install_dir"
 #=================================================
 ynh_script_progression "Installing dependencies..."
 pushd "$install_dir"
+    ynh_hide_warnings corepack enable
     ynh_hide_warnings npm install -g corepack@latest
     ynh_hide_warnings ynh_exec_as_app corepack prepare pnpm@9.15.5 --activate
     ynh_hide_warnings ynh_exec_as_app pnpm install --frozen-lockfile
