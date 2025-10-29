@@ -2,7 +2,7 @@
 
 packaging_format = 2
 
-id = docmost"
+id = "docmost"
 name = "Docmost"
 description.en = "Docmost is an open-source collaborative wiki and documentation software. It is an open-source alternative to Confluence and Notion."
 description.fr = ""
