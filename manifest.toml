@@ -1,31 +1,31 @@
-#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+#:schema https://raw.githubusercontent.com/YunoHost/apps/main/schemas/manifest.v2.schema.json
 
 packaging_format = 2
 
-id = "docmost"
+id = docmost"
 name = "Docmost"
-description.en = "Create, collaborate, and share knowledge"
-description.fr = "Créez, collaborez et partagez vos connaissances"
+description.en = "Docmost is an open-source collaborative wiki and documentation software. It is an open-source alternative to Confluence and Notion."
+description.fr = ""
 
-version = "0.3.1~ynh1"
+version = "0.23.2~ynh1"
 
-maintainers = ["eric_G"]
+maintainers = ["eric_G", "bowgartfield"]
 
 [upstream]
 license = "AGPL-3.0-only"
 website = "https://docmost.com/"
 admindoc = "https://docmost.com/docs/"
+userdoc = "https://docmost.com/docs/user-guide/"
 code = "https://github.com/docmost/docmost"
 
 [integration]
-yunohost = ">= 11.2.30"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
 
-ldap = false
-
-sso = false
+ldap = "false" # Can be setup in app directly
+sso = "false"
 
 disk = "512M"
 ram.build = "1000M"
@@ -33,36 +33,78 @@ ram.runtime = "512M"
 
 [install]
     [install.domain]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain"
 
+    [install.path]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    type = "path"
+    default = "/docmost"
+
     [install.init_main_permission]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "visitors"
 
+    [install.language]
+    ask.en = "Choose the application language"
+    ask.fr = "Choisissez la langue de l'application"
+    type = "select"
+    choices = ["fr", "en"]
+    default = "fr"
+
+    [install.admin]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    type = "user"
+
+    [install.file_storage_strategy]
+    ask.en = "File storage strategy"
+    ask.fr = "Stratégie de stockage des fichiers"
+    type = "select"
+    choices = ["local", "s3"]
+    default = "local"
+    help.en = "Choose where the file are stored. Local option store files on your server. S3 store files in any s3 compatible bucket."
+    help.fr = ""
+
+    [install.password]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    # Note that user-provided passwords questions are not automatically saved as setting
+    help.en = "Use the help field to add an information for the admin about this question."
+    help.fr = "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
+    type = "password"
+
 [resources]
+    # See the packaging documentation for the full set
+    # of explanation regarding the behavior and properties for each of those
 
     [resources.sources]
 
     [resources.sources.main]
+    url = "https://github.com/docmost/docmost/archive/refs/tags/v0.23.2.tar.gz"
+    sha256 = "9422659b065cf1e880c089b538357c8df7d2732033a6d4de68c95995ace10551"
+    autoupdate.strategy = "latest_github_tag"
 
-    url = "https://github.com/docmost/docmost/archive/refs/tags/v0.5.0.tar.gz"
-    sha256 = "3afd949252afc65a3759e7c0ac41f92a619da7b1be46aae4ca96ad0fa28f2033"
-
-    #autoupdate.strategy = "latest_github_tag"
+    [resources.nodejs]
+    version = "22"
 
     [resources.system_user]
 
     [resources.install_dir]
 
     [resources.data_dir]
+    # This will create/remove the data dir as /home/yunohost.app/$app
+    # and store the corresponding setting $data_dir
 
     [resources.permissions]
+    # This will configure SSOwat permission for $domain/$path/
+    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     main.url = "/"
 
     [resources.ports]
 
     [resources.apt]
-    packages = "postgresql, redis-server"
+    packages = "redis-server"
 
     [resources.database]
     type = "postgresql"
