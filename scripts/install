@@ -19,7 +19,7 @@ chown -R "$app:www-data" "$install_dir"
 # NODE JS INSTALLATION
 #=================================================
 ynh_script_progression "Installing pnpm..."
-npm install -g pnpm@10.4.0
+npm install -g pnpm@9.15.5
 
 #=================================================
 # INSTALLING DEPENDENCIES
