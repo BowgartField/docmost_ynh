@@ -39,7 +39,7 @@ ram.runtime = "512M"
     [install.path]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "path"
-    default = "/docmost"
+    default = "/"
 
     [install.init_main_permission]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
@@ -54,10 +54,6 @@ ram.runtime = "512M"
     choices = ["fr", "en"]
     default = "fr"
 
-    [install.admin]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "user"
-
     [install.file_storage_strategy]
     ask.en = "File storage strategy"
     ask.fr = "Stratégie de stockage des fichiers"
@@ -66,13 +62,6 @@ ram.runtime = "512M"
     default = "local"
     help.en = "Choose where the file are stored. Local option store files on your server. S3 store files in any s3 compatible bucket."
     help.fr = ""
-
-    [install.password]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # Note that user-provided passwords questions are not automatically saved as setting
-    help.en = "Use the help field to add an information for the admin about this question."
-    help.fr = "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
-    type = "password"
 
 [resources]
     # See the packaging documentation for the full set
